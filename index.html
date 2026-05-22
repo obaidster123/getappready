@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Obaid | College App Help</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F7F5F0;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: #F7F5F0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 600;
+    color: #1a1a1a; letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: #2D6A4F; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.85rem;
+    color: #555; font-weight: 400; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #1a1a1a; }
+  .nav-cta {
+    background: #2D6A4F; color: white;
+    border: none; padding: 0.55rem 1.3rem;
+    border-radius: 100px; font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #1e4d39; }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
+    padding: 5rem 2.5rem 4rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #D8F3DC; color: #2D6A4F;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.3rem 0.8rem;
+    border-radius: 100px; margin-bottom: 1.25rem;
+  }
+  .hero-eyebrow i { font-size: 13px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 600; line-height: 1.15;
+    color: #111; margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em { font-style: italic; color: #2D6A4F; }
+  .hero p {
+    font-size: 1rem; line-height: 1.75;
+    color: #555; margin-bottom: 1.8rem;
+    font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: #2D6A4F; color: white;
+    border: none; padding: 0.75rem 1.6rem;
+    border-radius: 100px; font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500; cursor: pointer;
+    transition: background 0.2s; text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #1e4d39; }
+  .btn-outline {
+    background: transparent; color: #1a1a1a;
+    border: 1px solid rgba(0,0,0,0.2); padding: 0.75rem 1.6rem;
+    border-radius: 100px; font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s; text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.4); }
+
+  /* HERO CARD */
+  .hero-card {
+    background: white; border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.07);
+    padding: 2rem; position: relative;
+  }
+  .profile-top {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, #2D6A4F 0%, #52b788 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: white; font-weight: 600;
+  }
+  .profile-name { font-weight: 500; font-size: 0.95rem; }
+  .profile-sub { font-size: 0.8rem; color: #888; margin-top: 2px; }
+  .badge-row {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem;
+  }
+  .badge {
+    background: #F0FAF4; color: #2D6A4F;
+    font-size: 0.72rem; font-weight: 500;
+    padding: 0.3rem 0.7rem; border-radius: 100px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .badge i { font-size: 12px; }
+  .stats-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.6rem; margin-bottom: 1.4rem;
+  }
+  .stat-box {
+    background: #F7F5F0; border-radius: 12px; padding: 0.75rem;
+    text-align: center;
+  }
+  .stat-num { font-size: 1.3rem; font-weight: 600; color: #111; }
+  .stat-label { font-size: 0.7rem; color: #888; margin-top: 2px; }
+  .cta-card-btn {
+    width: 100%; background: #2D6A4F; color: white;
+    border: none; padding: 0.7rem;
+    border-radius: 100px; font-size: 0.88rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cta-card-btn:hover { background: #1e4d39; }
+
+  /* SECTION */
+  section { padding: 4rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #2D6A4F; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600; line-height: 1.2;
+    color: #111; margin-bottom: 0.75rem; letter-spacing: -0.01em;
+  }
+  .section-sub { font-size: 0.95rem; color: #666; line-height: 1.7; font-weight: 300; }
+  .divider { border: none; border-top: 1px solid rgba(0,0,0,0.07); margin: 0 2.5rem; }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .service-card {
+    background: white; border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.07);
+    padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .service-card:hover { transform: translateY(-3px); }
+  .service-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: #D8F3DC; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .service-icon i { font-size: 20px; color: #2D6A4F; }
+  .service-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.5rem; }
+  .service-card p { font-size: 0.82rem; color: #777; line-height: 1.6; font-weight: 300; }
+
+  /* HOW IT WORKS */
+  .how-bg { background: white; border-radius: 24px; padding: 3rem; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+  .step { display: flex; flex-direction: column; gap: 0.75rem; }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; color: #D8F3DC; font-weight: 600; line-height: 1;
+  }
+  .step h4 { font-size: 0.95rem; font-weight: 500; }
+  .step p { font-size: 0.82rem; color: #777; line-height: 1.6; font-weight: 300; }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .testimonial-card {
+    background: white; border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.07); padding: 1.5rem;
+  }
+  .stars { color: #F4A020; font-size: 0.8rem; margin-bottom: 0.8rem; }
+  .testimonial-card blockquote {
+    font-size: 0.88rem; line-height: 1.7; color: #333;
+    font-weight: 300; margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .t-person { display: flex; align-items: center; gap: 0.75rem; }
+  .t-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 500; color: white;
+  }
+  .t-name { font-size: 0.82rem; font-weight: 500; }
+  .t-school { font-size: 0.75rem; color: #888; }
+
+  /* FAQ */
+  .faq-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .faq-item {
+    background: white; border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.07); overflow: hidden;
+  }
+  .faq-q {
+    width: 100%; background: none; border: none;
+    padding: 1.1rem 1.4rem; text-align: left;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; color: #1a1a1a;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: #F7F5F0; }
+  .faq-q i { font-size: 16px; color: #aaa; transition: transform 0.25s; }
+  .faq-q.open i { transform: rotate(180deg); color: #2D6A4F; }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 0.85rem; color: #666; line-height: 1.7;
+    font-weight: 300; padding: 0 1.4rem;
+  }
+  .faq-a.open { max-height: 200px; padding: 0 1.4rem 1.2rem; }
+
+  /* CONTACT */
+  .contact-section {
+    background: #2D6A4F; border-radius: 24px;
+    padding: 3.5rem; text-align: center;
+    margin: 0 2.5rem 4rem;
+  }
+  .contact-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: white; font-weight: 600;
+    margin-bottom: 0.75rem; letter-spacing: -0.01em;
+  }
+  .contact-section p {
+    color: rgba(255,255,255,0.75); font-size: 0.95rem;
+    font-weight: 300; margin-bottom: 2rem; line-height: 1.6;
+  }
+  .contact-form {
+    display: flex; gap: 0.75rem; max-width: 480px; margin: 0 auto;
+  }
+  .contact-form input {
+    flex: 1; padding: 0.75rem 1.1rem;
+    border-radius: 100px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    background: rgba(255,255,255,0.15); color: white;
+    outline: none;
+  }
+  .contact-form input::placeholder { color: rgba(255,255,255,0.5); }
+  .contact-form input:focus { background: rgba(255,255,255,0.22); }
+  .contact-form button {
+    background: white; color: #2D6A4F; border: none;
+    padding: 0.75rem 1.4rem; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    font-weight: 500; cursor: pointer; white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .contact-form button:hover { opacity: 0.9; }
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .contact-links a {
+    color: rgba(255,255,255,0.7); font-size: 0.82rem;
+    text-decoration: none; display: flex; align-items: center; gap: 5px;
+    transition: color 0.2s;
+  }
+  .contact-links a:hover { color: white; }
+  .contact-links i { font-size: 15px; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 1.5rem 2.5rem;
+    font-size: 0.78rem; color: #aaa; font-weight: 300;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.6s ease both; }
+  .hero > *:nth-child(2) { animation-delay: 0.12s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Obaid<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Services</a></li>
+    <li><a href="#">How It Works</a></li>
+    <li><a href="#">Reviews</a></li>
+    <li><a href="#">FAQ</a></li>
+  </ul>
+  <button class="nav-cta">Book a Session</button>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">
+      <i class="ti ti-school" aria-hidden="true"></i>
+      UC & CSU Applications
+    </div>
+    <h1>Get into the college <em>you actually want.</em></h1>
+    <p>I'm a current UC Berkeley student offering personalized guidance on UC personal insight questions, Common App essays, school selection, and the full application process — from someone who's been through it recently.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#">Book a free intro call</a>
+      <a class="btn-outline" href="#">See how it works</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="profile-top">
+      <div class="avatar">O</div>
+      <div>
+        <div class="profile-name">Obaid</div>
+        <div class="profile-sub">UC Berkeley — Data Science, Class of '27</div>
+      </div>
+    </div>
+    <div class="badge-row">
+      <span class="badge"><i class="ti ti-star" aria-hidden="true"></i> UC Essay Expert</span>
+      <span class="badge"><i class="ti ti-map-pin" aria-hidden="true"></i> Bay Area</span>
+      <span class="badge"><i class="ti ti-clock" aria-hidden="true"></i> Fast Turnaround</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Students helped</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">8</div>
+        <div class="stat-label">PIQ prompts</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">UC &amp; Cal</div>
+        <div class="stat-label">Specialized</div>
+      </div>
+    </div>
+    <button class="cta-card-btn">Book a session →</button>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<section>
+  <div class="section-label">What I help with</div>
+  <div class="section-title">Everything you need to apply with confidence</div>
+  <p class="section-sub">From picking schools to submitting your application, I cover the parts that actually matter.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-pencil" aria-hidden="true"></i></div>
+      <h3>UC Personal Insight Questions</h3>
+      <p>All 8 PIQ prompts — brainstorming, drafting, revising. I know what UC readers are actually looking for.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+      <h3>Common App Essay</h3>
+      <p>The 650-word personal statement. Picking your angle, structuring your story, and refining your voice.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+      <h3>School Selection</h3>
+      <p>Building a balanced list of UCs, CSUs, and privates based on your GPA, major, and goals.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-list-check" aria-hidden="true"></i></div>
+      <h3>Application Review</h3>
+      <p>Full application audit — activities list, honors, additional comments, and overall packaging.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-calendar" aria-hidden="true"></i></div>
+      <h3>Timeline Planning</h3>
+      <p>Custom roadmap so you're not scrambling in November. Deadlines, tasks, and accountability.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-message-circle" aria-hidden="true"></i></div>
+      <h3>1-on-1 Coaching</h3>
+      <p>Live sessions via Zoom to work through essays together, answer questions, and keep you on track.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section>
+  <div class="how-bg">
+    <div class="section-label">Process</div>
+    <div class="section-title">Simple, start to finish</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Book a free intro call</h4>
+        <p>15 minutes to talk about where you're at, what you need, and how I can help. No commitment required.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Pick a package</h4>
+        <p>Essay-only, full application support, or somewhere in between. We'll figure out what makes sense for you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Submit with confidence</h4>
+        <p>Work through your materials with me, get feedback, and hit submit knowing your application is as strong as it can be.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" style="margin-top: 0;" />
+
+<section>
+  <div class="section-label">Reviews</div>
+  <div class="section-title">What students are saying</div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I had no idea where to start with my PIQs. After one session with Obaid I had a solid outline for all four essays I was writing. He genuinely gets what UC readers want."</blockquote>
+      <div class="t-person">
+        <div class="t-avatar" style="background: #2D6A4F;">SK</div>
+        <div>
+          <div class="t-name">Sara K.</div>
+          <div class="t-school">Admitted to UCLA & UC San Diego</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"My Common App essay went from a boring list of things I did to something that actually sounded like me. Obaid helped me find the real story I was trying to tell."</blockquote>
+      <div class="t-person">
+        <div class="t-avatar" style="background: #184E77;">JM</div>
+        <div>
+          <div class="t-name">Jason M.</div>
+          <div class="t-school">Admitted to UC Berkeley</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I was applying junior year of community college and didn't know anyone who had done it before. Obaid walked me through the whole transfer process. Incredibly helpful."</blockquote>
+      <div class="t-person">
+        <div class="t-avatar" style="background: #6B3FA0;">PM</div>
+        <div>
+          <div class="t-name">Priya M.</div>
+          <div class="t-school">Transferred to UC Davis</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Super responsive and gave detailed feedback fast. Helped me cut my essay from 750 words to exactly 350 without losing any of the important parts."</blockquote>
+      <div class="t-person">
+        <div class="t-avatar" style="background: #9B2226;">AH</div>
+        <div>
+          <div class="t-name">Ali H.</div>
+          <div class="t-school">Admitted to UC Irvine</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section>
+  <div class="section-label">FAQ</div>
+  <div class="section-title">Common questions</div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Do I need to be applying to UCs specifically?
+        <i class="ti ti-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Not at all. While I specialize in UC Personal Insight Questions, I help students with Common App essays and CSU applications too. If you're not sure which schools to apply to, we can figure that out together.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What year are you in and how recent is your experience?
+        <i class="ti ti-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">I'm a junior at UC Berkeley (Class of 2027) studying Data Science. I applied to UCs and Cal in 2022, so the process and prompts are very fresh. I also stay current with any changes to prompts or requirements each cycle.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How do sessions work?
+        <i class="ti ti-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Most students do a mix of async feedback (I review your draft and leave comments) and live Zoom sessions to work through revisions together. You can pick whatever works best for you. I try to turn around async feedback within 48 hours.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How much does it cost?
+        <i class="ti ti-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Pricing varies by package — single essay review, full PIQ package, or comprehensive application support. Book a free intro call and I'll give you exact pricing based on what you actually need. No upselling.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What if my deadline is coming up fast?
+        <i class="ti ti-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Reach out anyway. If I have capacity I can prioritize your timeline. I've helped students turn around strong essays in under a week before. The earlier you start the better, but it's rarely too late to improve what you have.</div>
+    </div>
+  </div>
+</section>
+
+<div class="contact-section">
+  <h2>Ready to get started?</h2>
+  <p>Drop your email and I'll reach out to schedule a free 15-minute intro call.</p>
+  <div class="contact-form">
+    <input type="email" placeholder="your@email.com" id="email-input" />
+    <button onclick="submitEmail()">Let's talk</button>
+  </div>
+  <div class="contact-links">
+    <a href="#"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</a>
+    <a href="#"><i class="ti ti-mail" aria-hidden="true"></i> Direct Email</a>
+    <a href="#"><i class="ti ti-calendar" aria-hidden="true"></i> Calendly</a>
+  </div>
+</div>
+
+<footer>
+  © 2025 Obaid · UC Berkeley · Made to help students get where they're going.
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    btn.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+
+function submitEmail() {
+  const input = document.getElementById('email-input');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) {
+    input.style.background = 'rgba(255,80,80,0.25)';
+    setTimeout(() => input.style.background = '', 1000);
+    return;
+  }
+  input.value = '';
+  input.placeholder = "Got it — I'll be in touch soon!";
+}
+</script>
+</body>
+</html>
