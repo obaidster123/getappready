@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>App Ready | College Application Help</title>
+<title>GetAppReady | College Application Help</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css" />
 <style>
@@ -91,8 +91,6 @@ section{padding:4rem 2.5rem;max-width:1100px;margin:0 auto;}
 .contact-links a:hover{color:white;}
 .contact-links i{font-size:15px;}
 footer{text-align:center;padding:1.5rem 2.5rem;font-size:0.78rem;color:#aaa;font-weight:300;border-top:1px solid rgba(0,0,0,0.07);}
-
-/* Modal */
 .modal-backdrop{display:none;position:absolute;top:0;left:0;width:100%;min-height:100%;background:rgba(0,0,0,0.45);z-index:200;justify-content:center;align-items:flex-start;padding:4rem 1rem;}
 .modal-backdrop.active{display:flex;}
 .modal{background:white;border-radius:20px;padding:2rem;max-width:460px;width:100%;position:relative;}
@@ -148,7 +146,7 @@ footer{text-align:center;padding:1.5rem 2.5rem;font-size:0.78rem;color:#aaa;font
 </div>
 
 <nav>
-  <div class="nav-logo">App<span>Ready</span></div>
+  <div class="nav-logo">GetApp<span>Ready</span></div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#how">How it works</a></li>
@@ -363,14 +361,14 @@ footer{text-align:center;padding:1.5rem 2.5rem;font-size:0.78rem;color:#aaa;font
   </div>
   <div id="footer-success" style="display:none;color:rgba(255,255,255,0.9);font-size:0.88rem;margin-top:1rem;">Got it — I'll be in touch soon!</div>
   <div class="contact-links">
-    <a href="https://instagram.com" target="_blank"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</a>
-    <a href="mailto:you@email.com"><i class="ti ti-mail" aria-hidden="true"></i> Email me directly</a>
+    
+    <a href="mailto:obaidnasri@berkeley.edu"><i class="ti ti-mail" aria-hidden="true"></i> Email me directly</a>
     <a href="https://calendly.com" target="_blank"><i class="ti ti-calendar" aria-hidden="true"></i> Calendly</a>
   </div>
 </div>
 
 <footer>
-  © 2025 AppReady · UC Berkeley · Made to help students get where they're going.
+  © 2025 GetAppReady · UC Berkeley · Made to help students get where they're going.
 </footer>
 
 <script>
@@ -385,15 +383,26 @@ function closeModal(){
 document.getElementById('bookingModal').addEventListener('click',function(e){
   if(e.target===this) closeModal();
 });
-function submitBooking(){
+async function submitBooking(){
   const name=document.getElementById('m-name').value.trim();
   const email=document.getElementById('m-email').value.trim();
+  const grade=document.getElementById('m-grade').value;
+  const help=document.getElementById('m-help').value.trim();
   if(!name||!email||!email.includes('@')){
     alert('Please fill in your name and a valid email.');
     return;
   }
-  document.getElementById('modal-form-content').style.display='none';
-  document.getElementById('modal-success').style.display='block';
+  const res=await fetch('https://formspree.io/f/mojbdbny',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,email,grade,help})
+  });
+  if(res.ok){
+    document.getElementById('modal-form-content').style.display='none';
+    document.getElementById('modal-success').style.display='block';
+  } else {
+    alert('Something went wrong — try emailing me directly.');
+  }
 }
 function toggleFaq(btn){
   const answer=btn.nextElementSibling;
@@ -404,7 +413,7 @@ function toggleFaq(btn){
   });
   if(!isOpen){btn.classList.add('open');answer.classList.add('open');}
 }
-function submitFooterEmail(){
+async function submitFooterEmail(){
   const input=document.getElementById('footer-email');
   const val=input.value.trim();
   if(!val||!val.includes('@')){
@@ -412,11 +421,17 @@ function submitFooterEmail(){
     setTimeout(()=>input.style.background='',1000);
     return;
   }
-  input.style.display='none';
-  document.querySelector('.contact-form button').style.display='none';
-  document.getElementById('footer-success').style.display='block';
+  const res=await fetch('https://formspree.io/f/mojbdbny',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:val})
+  });
+  if(res.ok){
+    input.style.display='none';
+    document.querySelector('.contact-form button').style.display='none';
+    document.getElementById('footer-success').style.display='block';
+  }
 }
 </script>
 </body>
 </html>
-<!-- to resubmit -->
